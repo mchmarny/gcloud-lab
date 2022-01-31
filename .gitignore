@@ -1,0 +1,14 @@
+.DS_Store
+
+.hugo_build.lock
+/node_modules
+.devcontainer
+
+/resources/_gen/
+
+hugo.exe
+hugo.linux
+hugo.darwin
+
+dist
+tmp

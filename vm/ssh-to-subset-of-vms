@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# list all active (e.g. not deleted) project IDs 
+# to which this service account has access
+for p in  $(gcloud projects list \
+                        --format="value(projectId)" \
+                        --filter="lifecycleState:ACTIVE")
+do
+    # filter the projects that include substring "test"
+    if [[ "${p}" = *"test"* ]];then
+        # list all active (e.g. not paused) VM instances in that project
+        # using a large page size to avoid pagination
+        for vm, zn in $(gcloud compute instances list --project $p \
+                            --page-size 1000 --format="value(name,zone)" \
+                            --filter="status:RUNNING")
+        do
+            # ssh into the VM and excute the a command
+            gcloud compute ssh $vm --project $p --zone $zn --command='echo "hi"'
+        done
+    fi
+done

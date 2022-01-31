@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# list all active (e.g. not deleted) project IDs
+# to which this service account has access
+for p in  $(gcloud projects list \
+                        --format="value(projectId)" \
+                        --filter="lifecycleState:ACTIVE")
+do
+    # filter the projects that include substring "test"
+    if [[ "${p}" = *"test"* ]];then
+        # list email addresses for all service accounts in this project  
+        for a in $(gcloud iam service-accounts list \
+                            --project $p --format="value(email)")
+        do
+            # list all keys for each account
+            for k in $(gcloud iam service-accounts keys list 
+                                --iam-account $a \
+                                --project $p \
+                                --filter="keyType:USER_MANAGED" \
+                                --format="value(name.basename())")
+            do
+                echo "$p,$a,$k"
+            done
+        done
+    fi
+done

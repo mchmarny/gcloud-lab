@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+
+IMAGE=$1 # us-central1-docker.pkg.dev/project/repo/image
+PROJECT=$(echo $IMAGE | cut -d/ -f2)
+PAGE=500
+
+mkdir -p reports
+
+echo "processing image: ${IMAGE}"
+
+for row in $(
+    gcloud artifacts docker images list \
+    --project $PROJECT \
+    --limit $PAGE \
+    --page-size $PAGE \
+    --format 'csv[no-heading](DIGEST,UPDATE_TIME)' \
+    --sort-by ~UPDATE_TIME \
+    $IMAGE
+)
+do
+    IFS=',' read -r -a rowArray<<< "$row"
+    IMAGE_DIGEST="${rowArray[0]}"
+    IMAGE_DATE="${rowArray[1]:0:10}"
+    IMAGE_URI="${IMAGE}@${IMAGE_DIGEST}"
+    IMAGE_FILE="reports/${IMAGE_DATE}.json"
+
+    if [ ! -f $IMAGE_FILE ]
+    then
+        echo "version: $IMAGE_DATE - $IMAGE_URI"
+
+        # scan image
+        trivy image -q \
+                    --format json \
+                    --output "reports/${IMAGE_DATE}.json" \
+                    --scanners vuln \
+                    $IMAGE_URI
+
+        # summarize findings
+        cat "reports/${IMAGE_DATE}.json" | jq -r \
+            --arg image "$IMAGE" \
+            --arg date "$IMAGE_DATE" \
+            --arg digest "$IMAGE_DIGEST" \
+        '.Results[].Vulnerabilities[] | [$image, $date, $digest, .VulnerabilityID, .Severity] | @csv' >> report.csv
+    fi
+done

@@ -5,6 +5,7 @@
 .devcontainer
 
 /resources/_gen/
+/reports/
 
 hugo.exe
 hugo.linux

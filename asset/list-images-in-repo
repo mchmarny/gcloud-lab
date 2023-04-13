@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# List images in a repository
+gcloud asset search-all-resources \
+  --scope='organizations/$ORG_ID' \
+  --asset-types='artifactregistry.googleapis.com/DockerImage' \
+  --query='parentFullResourceName=//artifactregistry.googleapis.com/projects/$PROJECT/locations/$LOCATION/repositories/$REPO' \
+  --read-mask='displayName' \
+  --format='value(displayName)'

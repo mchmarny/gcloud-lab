@@ -2,8 +2,8 @@
 
 # lists all Artifact Registry repositories created after a given date.
 gcloud asset search-all-resources \
-  --scope='organizations/$ORG_ID' \
-  --asset-types='artifactregistry.googleapis.com/Repository' \
-  --query='createTime>2023-04-01' \
-  --order-by='location' \
-  --format='value(name)'
+  --scope "organizations/$ORG_ID" \
+  --asset-types "artifactregistry.googleapis.com/Repository" \
+  --query "createTime>2023-04-01" \
+  --order-by "location" \
+  --format "value(name)"

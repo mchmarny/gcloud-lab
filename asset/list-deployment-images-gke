@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# List GKE deployment images in the deault namespace
+gcloud asset search-all-resources \
+  --scope "organizations/$ORG_ID" \
+  --asset-types "apps.k8s.io/Deployment" \
+  --query "name:namespaces/default"

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# List Cloud Run Revision images
+gcloud asset search-all-resources \
+  --scope "organizations/$ORG_ID" \
+  --asset-types "run.googleapis.com/Revision" \
+  --order-by "createTime DESC"

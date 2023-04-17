@@ -1,9 +1,0 @@
-#!/bin/bash
-
-# List GKE deployment images in the deault namespace
-gcloud asset search-all-resources \
-  --scope "organizations/$ORG_ID" \
-  --asset-types "apps.k8s.io/Deployment" \
-  --query "NOT labels:k8s-app AND NOT labels:cnrm.cloud.google.com AND NOT labels:control-plane AND NOT labels:app.kubernetes.io" \
-  --read-mask "name" \
-  --format "value(name)"

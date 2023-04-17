@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# List GKE deployments across all regions/clusters/namespaces in an organization.
+# What's filtered out (customize as needed): 
+#   k8s-app - kubernetes.io/cluster-service like kube-dns
+#   control-plane - app.kubernetes.io like policy-controller-webhook
+#   cluster-service - kubernetes.io/cluster-service event-exporter-gke
+#   cnrm - cnrm.cloud.google.com/component like cnrm-resource-stats-recorder
+#   created after 2022-06-01
+gcloud asset search-all-resources \
+  --scope "organizations/$ORG_ID" \
+  --asset-types "apps.k8s.io/Deployment" \
+  --query "NOT labels:k8s-app AND NOT labels:control-plane AND NOT labels:cluster-service AND NOT labels:addonmanager AND NOT labels:cnrm AND createTime>2022-06-01" \
+  --read-mask "name" \
+  --format "value(name)"

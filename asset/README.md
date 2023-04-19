@@ -64,7 +64,9 @@ gcloud asset search-all-resources \
   --format "value(name)"
 ```
 
-There is also a number of ways to filter these results using `NOT` and `labels` content. These queries can be also combined with things like `createTime`: 
+> You can use the same approach to listing the pods by using `--asset-types "k8s.io/Pod"`
+
+Whether deployments or pods, there is also a number of ways to filter these results using `NOT` and `labels` content. These queries can be also combined with things like `createTime`: 
 
 ```shell
 gcloud asset search-all-resources \

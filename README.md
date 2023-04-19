@@ -6,3 +6,7 @@ Collection of `gcloud` commands
 * [list image/registry using asset inventory](asset)
 * [service accounts with a key](iam/list-sa-with-key)
 * [ssh into subset of vms across multiple projects](vm/ssh-to-subset-of-vms)
+
+## Disclaimer
+
+This is my personal project and it does not represent my employer. While I do my best to ensure that everything works, I take no responsibility for issues caused by this code.

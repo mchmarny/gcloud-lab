@@ -6,6 +6,7 @@ Collection of `gcloud` commands
 * [list image/registry using asset inventory](asset)
 * [service accounts with a key](iam/list-sa-with-key)
 * [ssh into subset of vms across multiple projects](vm/ssh-to-subset-of-vms)
+* [set up Cloud SQL instance with TLS access](sql/README.md)
 
 ## Disclaimer
 

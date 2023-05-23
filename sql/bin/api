@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DIR="$(dirname "$0")"
+. "${DIR}/config"
+
+gcloud services enable --quiet \
+    iam.googleapis.com \
+    sqladmin.googleapis.com
+
+
+
+

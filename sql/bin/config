@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# cloud sql config
+export INSTANCE="demo-instance"
+export HOME_DIR="${HOME}/.cloud-sql"
+export NUMBER_CPUS="2"
+export MEMORY_SIZE="7680MB"
+export NODE_ZONE="us-west1-c"
+export NODE_HD="100GB" #initial only, will auto-grow
+export SA_NAME="demo-sa"
+export DB_NAME="demo-db"
+export DB_USER="demo-user"
+export DB_VERSION="POSTGRES_14"
+
+# derived
+export PROJECT=$(gcloud config get-value project)
+export CONF_DIR="${HOME_DIR}/${PROJECT}/${INSTANCE}"
+export SA_EMAIL="${SA_NAME}@${PROJECT}.iam.gserviceaccount.com"

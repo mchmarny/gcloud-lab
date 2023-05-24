@@ -6,26 +6,7 @@ This sample automates the process of setting up a Cloud SQL instance with secure
 
 ## Pre-requirements
 
-### GCP Project and gcloud SDK
-
 If you don't have one already, start by creating new project and configuring [Google Cloud SDK](https://cloud.google.com/sdk/docs/).
-
-## API
-
-In case you have not used some of the required GCP APIs, run [bin/api](bin/api) script to make sure they are all enabled:
-
-
-```shell
-bin/api
-```
-
-## Passwords
-
-The [bin/password](bin/password) script will generate root and app user passwords and saved them in a project scoped path in your home directory.
-
-```shell
-bin/password
-```
 
 ## Instance
 
@@ -47,7 +28,7 @@ bin/instance
 
 The [bin/schema](bin/schema) script applies database schema located in [ddl/schema.sql](ddl/schema.sql).
 
-> The provided script checks for existence of all the objects before creating them so you can run it multiple times. it only creates one simple table right now so feel free to edit it before executing the schema script
+> Ideally, the provided script checks for existence of all the objects before creating them so you can run it multiple times.
 
 ```shell
 bin/schema
@@ -62,14 +43,6 @@ bin/connect
 ```
 
 > Use `\q` to exit.
-
-### Secret
-
-The [bin/secret](bin/secret) script creates Secret Manager secrets, so that other services can securely obtain them while connecting to Cloud SQL DB.
-
-```shell
-bin/secret
-```
 
 ## Disclaimer
 
